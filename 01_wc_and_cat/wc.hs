@@ -57,7 +57,6 @@ consume c (WCState accepting chars words lines) =
   case category c of
     Newline                 ->  WCState True chars' words (lines + 1)
     Whitespace              ->  WCState True chars' words lines
-    Other                   ->  WCState accepting chars' words lines
     Word | accepting        ->  WCState False chars' (words + 1) lines
          | otherwise        ->  WCState False chars' words lines
  where
@@ -113,11 +112,10 @@ display (WCResult s (WCState _ c w l)) = printf fmt l w c s
 
 {-| An enumeration of character types, from the point of view of WC.
  -}
-data CharCategories          =  Word | Newline | Whitespace | Other
+data CharCategories          =  Word | Newline | Whitespace
  deriving (Eq, Ord, Show)
 
 category c | '\n' == c       =  Newline
            | isSpace c       =  Whitespace
-           | isAlphaNum c    =  Word
-           | otherwise       =  Other
+           | otherwise       =  Word
 
