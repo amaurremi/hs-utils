@@ -22,7 +22,7 @@
   evaluated by the runtime system when the executable is run (this can be
   changed with compiler options but it's just as well not to do it).
 
-  To run the command, use `make':
+  To build the command, use `make':
 
    :; make hello
     ghc --make -O2 -o hello hello.hs
@@ -31,7 +31,12 @@
    :; ./hello
     Hello.
 
-  Exercizes:
+  The included `Makefile' contains task for every utility we will cover in
+  this tutorial; it also has a `clean' task.
+
+
+                                                                     Exercizes
+   ----------------------------------------------------------------------------
 
     01    Add a module declaration above the declaration of `main' in
           `hello.hs':
@@ -45,7 +50,6 @@
 
             #!/usr/bin/env runhaskell
 
-          Add this line to the top of the script and ensure it is executable.
           Try running `hello.hs' as well as `hello' with `time'. The latter is
           much faster than the former.
 
