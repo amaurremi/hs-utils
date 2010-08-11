@@ -26,9 +26,12 @@ data WCJob                   =  WCJob String -- ^ Name of file.
                                       Handle -- ^ Input handle.
                                        deriving (Show)
 
-{-| WCState is the state of a counting task.
+{-| The start state -- nothing counted and accepting words.
  -}
 start                        =  WCState True 0 0 0
+
+{-| WCState is the state of a counting task.
+ -}
 data WCState                 =  WCState Bool   -- ^ Accepting words?
                                         Word64 -- ^ Character count.
                                         Word64 -- ^ Word count.
