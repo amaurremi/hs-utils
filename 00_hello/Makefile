@@ -18,6 +18,6 @@ list:
 	$(info Available targets:)
 	$(info $(basename $(foreach t,$(targets),$(wildcard $(t).hs))))
 clean:
-	rm -f $(targets) *.hi *.o
+	rm -f $(basename $(foreach t,$(targets),$(wildcard $(t).hs))) *.hi *.o
 $(targets): %: %.hs
 	ghc --make -O2 -o $@ $<

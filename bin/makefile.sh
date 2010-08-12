@@ -35,7 +35,7 @@ list:\n\t$(info Available targets:)
 a\
 \t$(info $(basename $(foreach t,$(targets),$(wildcard $(t).hs))))
 a\
-clean:\n\trm -f $(targets) *.hi *.o
+clean:\n\trm -f $(basename $(foreach t,$(targets),$(wildcard $(t).hs))) *.hi *.o
 a\
 $(targets): %: %.hs\n\tghc --make -O2 -o $@ $<
 }
