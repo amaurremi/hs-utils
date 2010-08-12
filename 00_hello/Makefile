@@ -14,6 +14,9 @@ targets += sha256sum sha384sum sha512sum shred shuf sleep sort split stat
 targets += stty sum sync tac tail tee test touch tr true truncate tsort
 targets += tty uname unexpand uniq unlink users vdir wc who whoami yes
 
+list:
+	$(info Available targets:)
+	$(info $(basename $(foreach t,$(targets),$(wildcard $(t).hs))))
 clean:
 	rm -f $(targets) *.hi *.o
 $(targets): %: %.hs
