@@ -64,6 +64,7 @@ consume c (WCState accepting chars words lines) =
 
 
 
+
 {- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   We introduce data structures for each file to be processed and the state of
   a WC parse/run. By introducing these structures, we make handling further
