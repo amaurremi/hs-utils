@@ -19,7 +19,7 @@ main                         =  do
   results                   <-  (sequence . map wc) jobs'
   (sequence . map display') results
  where
-  display' result            =  (hPutStrLn stdout . display) result
+  display' result            =  (hPutStr stdout . display) result
 
 wc                          ::  WCJob -> IO WCResult
 wc (WCJob name handle)       =  do
@@ -104,7 +104,7 @@ display                     ::  WCResult -> String
 display (WCResult s (WCState _ c w l)) = printf fmt l w c s
  where
   len                        =  ceiling (logBase 10 (fromIntegral c))
-  fmt = (concat . replicate 3) ("%" ++ show len ++ "d ") ++ "%s"
+  fmt = (concat . replicate 3) ("%" ++ show len ++ "d ") ++ "%s\n"
 --  Notice how I drill down into the fields of `WCResult' and then drill down
 --  into `WCState' for its fields. In what ways is pattern matching opposed
 --  to modularity?
