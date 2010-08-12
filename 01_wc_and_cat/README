@@ -1,31 +1,4 @@
 
-
-  The subprogram `main' has type `IO ()'. This can be read "I/O of unit". The
-  `()' is the one element type, unit. The `IO' is a parameterized type, like
-  `vector<x>' in C++ or `Array<type>' in Java.
-
-  Use GHCi to find out more about `IO':
-
-    Prelude> :info IO
-    newtype IO a
-      = GHC.Types.IO (GHC.Prim.State# GHC.Prim.RealWorld
-                      -> (# GHC.Prim.State# GHC.Prim.RealWorld, a #))
-            -- Defined in GHC.Types
-    instance Monad IO -- Defined in GHC.Base
-    instance Functor IO -- Defined in GHC.Base
-
-  The `IO' type accepts a type parameter, `a', and wraps it in a few compiler
-  internal types. We won't go in to the details here; it suffices to say that
-  the `#' all over the place are a clue that these are "unboxed" types and
-  contribute greatly to the efficiency of the resulting program.
-
-  The `IO' type is an *instance* of both `Functor' and `Monad', which are
-  "type classes". A type class is rather like an interface in JAVA. In
-  Haskell, data types do not have behaviour and consequently do not have
-  methods; rather, there are functions that operate on them. Type classes
-  allow one to add behaviour to a datatype, rather like "opening" a class
-  definition in Ruby and inserting some new methods (only this is all static).
-
   Our implementation of `wc' makes heavy use of the IO monad, for opening
   files and publishing output. Try running it on it's own source code:
 
@@ -36,7 +9,7 @@
    :; wc ./wc.hs
      121  736 4655 ./wc.hs
 
-  Should get the same result as the native `wc':
+  You should get the same result as the native `wc':
 
    :; ./wc ./wc.hs
      121  736 4655 ./wc.hs
@@ -44,6 +17,13 @@
   Note that there are many type definitions in this one file. One makes heavy
   use of types in Haskell: to express one's intent, to clean up one's function
   definitions and to induce the compiler to reject logic errors.
+
+  The subprogram `main' has type `IO ()'. This can be read "I/O of unit". The
+  `()' is the one element type, unit. The `IO' is a parameterized type, like
+  `vector<x>' in C++ or `Array<type>' in Java. As both a `Functor' and a
+  `Monad', it has access to `fmap' and `do' notation, both of which you will
+  see in the example. We'll be unveiling monads, functors and do notation
+  gradually over the next few lessons.
 
 
                                                                      Exercizes
@@ -86,5 +66,6 @@
               return (WCResult name state)
 
           Can you rewrite this function with `fmap', omitting `do' notation?
+          The `job' function is a good model to follow.
 
 
