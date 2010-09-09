@@ -3,18 +3,29 @@ module HSUtils.WC.Options where
 
 
 import Prelude hiding (words, lines)
+import System.Environment
 import Data.Set
+import Control.Arrow
 --import Control.Applicative
 
 import Text.Parsec hiding (string, option)
 
 
-optionOrArg                 ::  (Stream s m String)
-                            =>  (Set Option, [String])
-                            ->  ParsecT s u m (Set Option, [String])
-optionOrArg (options, args) =
-  choice [ fmap ((flip (,) args) . (`insert` options)) option
-         , fmap (((,) options) . (:args)) anyString ]
+getOptionsAndArgs           ::  IO (Either ParseError (Set Option, [String]))
+getOptionsAndArgs =
+  runP optionsAndArgs (Data.Set.empty, []) "<argv>" `fmap` getArgs
+
+optionsAndArgs =
+  choice [eof >> getState, optionOrArgWithState >> optionsAndArgs] 
+
+optionOrArgWithState         =  do
+  res                       <-  optionOrArg
+  modifyState $ case res of
+    Left option             ->  first (insert option)
+    Right string            ->  second (string:)
+
+optionOrArg :: (Stream s m String) => ParsecT s u m (Either Option String)
+optionOrArg = choice [Left `fmap` option, Right `fmap` anyString]
 
 
 {-| Invidual WC options, though not all of them. In particular, we omit the
