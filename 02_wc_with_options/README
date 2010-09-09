@@ -4,11 +4,11 @@
                                                                          Tasks
    ----------------------------------------------------------------------------
 
-    1 Implement a `wc' that interprets the options presented by the option
+   1  Implement a `wc' that interprets the options presented by the option
       parser.
 
 
-    2 Fix the option parsing library so that it throws errors when bad options
+   2  Fix the option parsing library so that it throws errors when bad options
       (`--lnes') are entered. It should error out on any string beginning with
       with `--' that is not an option; it should also error out on any two
       character sequence beginning with `-' that is not an option. In the
@@ -16,13 +16,13 @@
       parsing errors.
 
 
-    3 Our `(Set Option, [String])' representation of options and arguments
+   3  Our `(Set Option, [String])' representation of options and arguments
       does not work for the `--files0-from=F' option of GNU `wc'. Adjust the
       parser, the underlying data structure and the application to support
       this option.
 
 
-    4 To support the `--chars' and `--bytes' options is difficult; we must
+   4  To support the `--chars' and `--bytes' options is difficult; we must
       have some knowledge of text-encoding. Should we switch to ByteString and
       introduce a new counter that has some knowledge of the character
       encoding?  You have some flexibility; it's nice if you can support both
