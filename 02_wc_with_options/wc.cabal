@@ -12,3 +12,4 @@ executable                      wc
                               , parsec >= 3
   extensions                  : FlexibleContexts 
                               , NoMonomorphismRestriction
+
