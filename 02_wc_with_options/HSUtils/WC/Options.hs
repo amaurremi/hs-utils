@@ -1,4 +1,8 @@
 
+{-# LANGUAGE FlexibleContexts
+           , NoMonomorphismRestriction
+  #-}
+
 module HSUtils.WC.Options where
 
 
@@ -15,8 +19,8 @@ getOptionsAndArgs           ::  IO (Either ParseError (Set Option, [String]))
 getOptionsAndArgs =
   runP optionsAndArgs (Data.Set.empty, []) "<argv>" `fmap` getArgs
 
-optionsAndArgs =
-  choice [eof >> getState, optionOrArgWithState >> optionsAndArgs] 
+optionsAndArgs = choice [ eof >> fmap (second reverse) getState
+                        , optionOrArgWithState >> optionsAndArgs ]
 
 optionOrArgWithState         =  do
   res                       <-  optionOrArg

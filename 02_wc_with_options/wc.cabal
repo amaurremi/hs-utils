@@ -8,5 +8,7 @@ executable                      wc
   main-is                     : wc.hs
   other-modules               : HSUtils.WC.Options
   build-depends               : base >= 4
+                              , containers >= 0.3
                               , parsec >= 3
-
+  extensions                  : FlexibleContexts 
+                              , NoMonomorphismRestriction
