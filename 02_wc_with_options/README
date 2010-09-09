@@ -47,11 +47,11 @@
       this option.
 
 
-   4  To support the `--chars' and `--bytes' options is difficult; we must
-      have some knowledge of text-encoding. Should we switch to ByteString and
-      introduce a new counter that has some knowledge of the character
-      encoding?  You have some flexibility; it's nice if you can support both
-      byte and character counting in any encoding GHC understands; it's also
-      nice if it can handle UTF-8 (the most common encoding by far) with high
-      performance.
+   4  To support the `--chars' and `--bytes' options simultaneously is
+      difficult; we must  have some knowledge of text-encoding. Should we
+      switch to ByteString and introduce a new counter that has some knowledge
+      of the character encoding? You have some flexibility; it's nice if you
+      can support both byte and character counting in any encoding GHC
+      understands; it's also nice if it can handle only UTF-8 (the most common
+      encoding by far) with high performance.
 
