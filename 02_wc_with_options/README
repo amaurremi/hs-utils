@@ -1,0 +1,32 @@
+
+
+
+                                                                         Tasks
+   ----------------------------------------------------------------------------
+
+    1 Implement a `wc' that interprets the options presented by the option
+      parser.
+
+
+    2 Fix the option parsing library so that it throws errors when bad options
+      (`--lnes') are entered. It should error out on any string beginning with
+      with `--' that is not an option; it should also error out on any two
+      character sequence beginning with `-' that is not an option. In the
+      application, we should present diagnostics and quit when there are
+      parsing errors.
+
+
+    3 Our `(Set Option, [String])' representation of options and arguments
+      does not work for the `--files0-from=F' option of GNU `wc'. Adjust the
+      parser, the underlying data structure and the application to support
+      this option.
+
+
+    4 To support the `--chars' and `--bytes' options is difficult; we must
+      have some knowledge of text-encoding. Should we switch to ByteString and
+      introduce a new counter that has some knowledge of the character
+      encoding?  You have some flexibility; it's nice if you can support both
+      byte and character counting in any encoding GHC understands; it's also
+      nice if it can handle UTF-8 (the most common encoding by far) with high
+      performance.
+
