@@ -1,11 +1,36 @@
 
 
+                                                           Building with Cabal
+   ----------------------------------------------------------------------------
+
+    There's no Makefile in this example -- we have a Cabal file, `wc.cabal',
+    instead. The Cabal file is Haskell specific and lets us specify Haskell
+    depenencies and options in a convenient way. You can install `cabal' on
+    Ubuntu with Aptitude:
+
+      sudo aptitude install cabal-install
+
+    Once you have it, you'll probably need to install Parsec 3. You can
+    install it with Aptitude, too:
+
+      sudo aptitude install libghc6-parsec3-dev
+
+    To build `wc', we use:
+
+      cabal configure && cabal build
+
+    It puts the `wc' binary in `dist/build/wc/wc'.
+
+
+
 
                                                                          Tasks
    ----------------------------------------------------------------------------
 
    1  Implement a `wc' that interprets the options presented by the option
-      parser.
+      parser. If the `--help' option is set, print help on STDOUT and exit. If
+      the `--version' option is set, just print the version on STDOUT. The
+      `--help' option takes precedence over the `--version' option.
 
 
    2  Fix the option parsing library so that it throws errors when bad options
@@ -13,7 +38,7 @@
       with `--' that is not an option; it should also error out on any two
       character sequence beginning with `-' that is not an option. In the
       application, we should present diagnostics and quit when there are
-      parsing errors.
+      parsing errors. All errors should be displayed on STDERR.
 
 
    3  Our `(Set Option, [String])' representation of options and arguments
