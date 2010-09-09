@@ -10,7 +10,6 @@ import Prelude hiding (words, lines)
 import System.Environment
 import Data.Set
 import Control.Arrow
---import Control.Applicative
 
 import Text.Parsec hiding (string, option)
 
