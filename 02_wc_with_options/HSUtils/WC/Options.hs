@@ -8,15 +8,15 @@ module HSUtils.WC.Options where
 
 import Prelude hiding (words, lines)
 import System.Environment
-import Data.Set
+import Data.Set (Set, insert, empty)
 import Control.Arrow
 
-import Text.Parsec hiding (string, option)
+import Text.Parsec hiding (option)
 
 
 getOptionsAndArgs           ::  IO (Either ParseError (Set Option, [String]))
 getOptionsAndArgs =
-  runP optionsAndArgs (Data.Set.empty, []) "<argv>" `fmap` getArgs
+  runP optionsAndArgs (empty, []) "<argv>" `fmap` getArgs
 
 optionsAndArgs = choice [ eof >> fmap (second reverse) getState
                         , optionOrArgWithState >> optionsAndArgs ]
@@ -25,7 +25,7 @@ optionOrArgWithState         =  do
   res                       <-  optionOrArg
   modifyState $ case res of
     Left option             ->  first (insert option)
-    Right string            ->  second (string:)
+    Right str            ->  second (str:)
 
 optionOrArg :: (Stream s m String) => ParsecT s u m (Either Option String)
 optionOrArg = choice [Left `fmap` option, Right `fmap` anyString]
@@ -49,18 +49,22 @@ words                        =  strings ["-w", "--words"] >> return Words
 help                         =  strings ["--help"]        >> return Help
 version                      =  strings ["--version"]     >> return Version
 
-
-
-string :: (Stream s m String) => String -> ParsecT s u m String
-string s                     =  stringTest idTest
+stringy :: (Stream s m String) => String -> ParsecT s u m String
+stringy s                    =  stringTest idTest
  where
   idTest s'                  =  if s == s' then Just s else Nothing
 
 strings :: (Stream s m String) => [String] -> ParsecT s u m String
-strings                      =  choice . fmap (try . string)
+strings                      =  choice . map (try . stringy)
 
 anyString                   ::  (Stream s m String) => ParsecT s u m String
-anyString                    =  stringTest Just
+anyString                    =      try (stringTest dashTest)
+                                <|> error "invalid option"
+ where
+  dashTest ('-' : end)       = case end of
+                                    (_ : [])  -> Nothing
+                                    ('-' : _) -> Nothing
+  dashTest s                 = Just s
 
 {-| Bootstraps our string parser (we work with streams of strings as opposed
     to streams of chars).
