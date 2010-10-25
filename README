@@ -1,5 +1,3 @@
-i changed everything
-
   As long as GHC is installed, you can build the sample program with:
 
    :; make cat
